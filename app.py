@@ -1,5 +1,5 @@
 from flask import Flask
-import Performance_Segments  # همون فایلی که بالا نوشتی
+import Performance_Segments  # ایمپورت فایل Performance_Segments.py
 
 app = Flask(__name__)
 
@@ -7,10 +7,13 @@ app = Flask(__name__)
 def home():
     return "Hello, Flask on Render! 🎉"
 
-@app.route("/update")
-def update_segments():
-    msg = Performance_Segments.main()
-    return msg
+@app.route("/performance_segments")
+def run_performance_segments():
+    try:
+        result = Performance_Segments.main()
+        return f"✅ Done: {result}"
+    except Exception as e:
+        return f"❌ Error: {str(e)}"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
